@@ -10,11 +10,27 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+html
+{
+    font-size: 93.75%; /* 15px */
+}
 body
 {
     background: #F0F2F5;
     font-family: 'Poppins', sans-serif;
+}
+
+.sr-only 
+{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 .container
@@ -33,7 +49,23 @@ h2
     font-weight: 400;
 }
 
+/*      Links & Buttons     */
 
+a{
+    color:#49AA26;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color:#3DD705; 
+}
+
+.button.new
+{
+    display: inline-block;
+    margin-bottom: .8rem;
+}
 /*      Header       */ 
 
 header
@@ -76,6 +108,10 @@ header
 {
     font-weight: normal;
     font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .card p 
@@ -94,17 +130,26 @@ header
 
 #data-table
 {
+    display: block;
+    overflow-x: auto;
     width: 100%;
     border-spacing: 0 0.5rem;
     color: #969Cb3;
 } 
-table thead tr th:first-child, table tbody tr td:first-child
+table thead tr th:first-child, 
+table tbody tr td:first-child
 {
     border-radius: 0.25rem 0 0 0.25rem;
 }
 
+table thead tr th:last-child, 
+table tbody tr td:last-child
+{
+    border-radius: 0 0.25rem 0.25rem 0;
+}
 
-table th{
+table th
+{
     background: #FFFFFF;
     opacity: 0.6;
     font-weight: normal;
@@ -150,3 +195,19 @@ footer
     color: var(--dark-blue); 
     opacity: 0.6;
 } 
+
+/*      Responsive       */
+
+@media(min-width: 800px) 
+{
+    html 
+    {
+        font-size: 87.5%; /* 14px */
+    }
+    #balance 
+    {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
