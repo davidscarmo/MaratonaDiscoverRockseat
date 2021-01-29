@@ -7,7 +7,8 @@
 
     <link rel="stylesheet" href="./styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
   </head>
   <body>
     <header>
@@ -56,24 +57,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="description">Luz</td>
-              <td class="expense">- R$500,00</td>
-              <td class="date">23/01/2021</td>
-              <td><img src="./assets/minus.svg" alt="Remover transação"></td>
-            </tr>
-            <tr>
-              <td class="description">Criação Website</td>
-              <td class="income">R$5000,00</td>
-              <td class="date">23/01/2021</td>
-              <td><img src="./assets/minus.svg" alt="Remover transação"></td>
-            </tr>
-            <tr>
-              <td class="description">Internet</td>
-              <td class="expense">- R$200,00</td>
-              <td class="date">23/01/2021</td>
-              <td><img src="./assets/minus.svg" alt="Remover transação"></td>
-            </tr>
+            
           </tbody>
         </table>
       </section>
@@ -132,24 +116,8 @@
       <p>dev.finance$</p>
     </footer>
 
-    <script>
-      const Modal = {
-        open(){
-          //Abrir Mobal
-          //Adicionar a class active ao modal
-          document
-          .querySelector('.modal-overlay')
-          .classList.add('active');
-        }, 
-        close()
-        {
-          //Fechar Modal, 
-          //Remover a class active do modal
-          document
-          .querySelector('.modal-overlay')
-          .classList.remove('active');
-        }
-      }
+    <script src="./script.js">
+      
     </script>
   </body>
 </html>
