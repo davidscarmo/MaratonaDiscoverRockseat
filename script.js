@@ -39,17 +39,37 @@ const Modal = {
 
   const Transaction = 
   {
+      all: transactions, 
+      add(transaction)
+      {
+        Transaction.all.push(transaction);
+        App.reload();
+      },
       incomes()
       {
-        //somar as entradas
+        let income = 0; 
+        
+        Transaction.all.filter((transaction) => transaction.amount > 0).forEach((transaction) => 
+        {
+            return income = income + transaction.amount;
+        });
+        
+        return income; 
       },
       expenses()
       {
-        //somar as saídas
+        let expense = 0; 
+        
+        Transaction.all.filter((transaction) => transaction.amount < 0).forEach((transaction) => 
+        {
+            return expense +=  transaction.amount;
+        });
+        
+        return expense; 
       }, 
       total()
       {
-          //entradas - saídas
+        return Transaction.expenses() + Transaction.incomes(); ; 
       }
   }
 
@@ -73,6 +93,18 @@ const Modal = {
               <td><img src="./assets/minus.svg" alt="Remover transação"></td>
           `
           return html;
+      },
+      updateBalance()
+      {
+        
+        document.getElementById('incomeDisplay').innerHTML= Utils.formatCurrency(Transaction.incomes());
+        document.getElementById('expenseDisplay').innerHTML= Utils.formatCurrency(Transaction.expenses());
+        document.getElementById('totalDisplay').innerHTML= Utils.formatCurrency(Transaction.total());
+
+      },
+      clearTransaction()
+      {
+       DOM.transactionContainer.innerHTML = "";   
       }
   }
 
@@ -93,4 +125,30 @@ const Modal = {
       }
   }
 
- transactions.forEach((transactions) => (DOM.addTransaction(transactions))); 
+  const App = 
+  {
+      init()
+      {
+        Transaction.all.forEach((transactions) => (DOM.addTransaction(transactions))); 
+
+        DOM.updateBalance();
+       
+        }, 
+      reload()
+      {
+        DOM.clearTransaction();
+        App.init();
+      }
+  }
+ 
+  App.init();
+  Transaction.add(
+            {
+                id: 39, 
+                description: 'Alo', 
+                amount: 200, 
+                date: '23/01/2021'
+            }
+        ); 
+       
+console.log(transactions);
