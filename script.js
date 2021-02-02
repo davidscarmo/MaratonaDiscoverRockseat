@@ -15,26 +15,20 @@ const Modal = {
       .classList.remove('active');
     }
   }; 
-
+  const Storage = 
+  {
+    get()
+    {
+      return JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
+    },
+    set(transaction)
+    {
+      localStorage.setItem("dev.finances:transactions", JSON.stringify(transaction)); 
+    }, 
+  }
   const Transaction = 
   {
-      all: [
-        {
-         description: 'Luz', 
-         amount: -50000,
-         date: '23/01/2021',   
-        },
-        {
-         description: 'Website', 
-         amount: 500000,
-         date: '23/01/2021',   
-        },
-        {
-         description: 'Internet', 
-         amount: -20000,
-         date: '23/01/2021',   
-        }
-    ], 
+      all: Storage.get(), 
       add(transaction)
       {
         Transaction.all.push(transaction);
@@ -81,9 +75,10 @@ const Modal = {
       {
             const tr = document.createElement('tr');
             tr.innerHTML = DOM.innerHTMLTransaction(transaction);
+            tr.dataset.index = index; 
             DOM.transactionContainer.appendChild(tr);
       },
-      innerHTMLTransaction(transaction)
+      innerHTMLTransaction(transaction, index)
       {
           const CSSClass = transaction.amount > 0 ? "income" : "expense"; 
           const amount = Utils.formatCurrency(transaction.amount); 
@@ -91,7 +86,7 @@ const Modal = {
               <td class="description">${transaction.description}</td>
               <td class="${CSSClass}">${amount}</td>
               <td class="date">${transaction.date}</td>
-              <td><img src="./assets/minus.svg" alt="Remover transação"></td>
+              <td><img onclick="Transaction.remove(${index})" src="./assets/minus.svg" alt="Remover transação"></td>
           `
           return html;
       },
@@ -113,7 +108,7 @@ const Modal = {
   {
       formatAmount(value)
       {
-        value = Number(value) * 100; 
+        value = Number(value.replace(/\,\./g, "")) * 100; 
         return value;
       },
       formatDate(date)
@@ -143,8 +138,7 @@ const Modal = {
 
     getValues()
     {
-      
-      return {
+        return {
         description: Form.description.value,
         amount: Form.amount.value, 
         date: Form.date.value
@@ -203,14 +197,16 @@ const Modal = {
       Form.formatValues();
     }
   }; 
+
+  
   const App = 
   {
       init()
       {
-        Transaction.all.forEach((transactions) => (DOM.addTransaction(transactions))); 
+        Transaction.all.forEach((transactions, index) => (DOM.addTransaction(transactions, index))); 
 
         DOM.updateBalance();
-       
+        Storage.set(Transaction.all);
         }, 
       reload()
       {
